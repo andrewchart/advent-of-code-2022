@@ -1,9 +1,9 @@
-const sumArray = require('../common/utils.js').sumArray;
+const sumArray = require('../../common/utils.js').sumArray;
 const lineReader = require('line-reader');
 
 (() => {
    
-    const INPUT_DATA_PATH = './src/01/input.txt';
+    const INPUT_DATA_PATH = './src/2022/01/input.txt';
 
     let summingArray = [];
     let answerArray = [];

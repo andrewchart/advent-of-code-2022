@@ -2,7 +2,7 @@ const lineReader = require('line-reader');
 
 (() => {
    
-    const INPUT_DATA_PATH = './src/04/input.txt';
+    const INPUT_DATA_PATH = './src/2022/04/input.txt';
 
     // Part 1 - Track the number of pairs that have ranges that overlap one another fully
     let assignmentPairsOverlappedFully = 0;

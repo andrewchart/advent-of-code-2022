@@ -1,9 +1,9 @@
-const sumArray = require('../common/utils.js').sumArray;
+const sumArray = require('../../common/utils.js').sumArray;
 const lineReader = require('line-reader');
 
 (() => {
 
-    const INPUT_DATA_PATH = './src/03/input.txt';
+    const INPUT_DATA_PATH = './src/2022/03/input.txt';
 
     // Part 1 - Items of the same type in each rucksack that are split between compartments
     let problemItems = [];

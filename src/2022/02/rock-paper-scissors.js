@@ -4,7 +4,7 @@ const Shape = require('./shapes.js').Shape;
 
 (() => {
    
-    const INPUT_DATA_PATH = './src/02/input.txt';
+    const INPUT_DATA_PATH = './src/2022/02/input.txt';
 
     let totalScoreOriginalStrategy = 0;
     let totalScoreUpdatedStraregy = 0;
