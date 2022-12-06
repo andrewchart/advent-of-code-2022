@@ -30,12 +30,17 @@ const Ship = require('./ship.js').Ship;
         // On the last run, process the inputs
         if(last) {
 
-            let ship = new Ship(state);
+            const originalState = state;
 
-            moves.forEach((move) => ship.doMove(move));
+            // Part 1 - Move crates one at a time
+            let ship9000 = new Ship(originalState);
+            moves.forEach((move) => ship9000.doMove(move, 9000));
+            console.log("The answer to Part One is:", ship9000.getStackTops().join(""));
 
-            console.log("The answer to Part One is:", ship.getStackTops().join(""));
-            console.log("The answer to Part Two is:");
+            // Part 2 - Move crates all in one go
+            let ship9001 = new Ship(originalState);
+            moves.forEach((move) => ship9001.doMove(move, 9001));
+            console.log("The answer to Part Two is:", ship9001.getStackTops().join(""));
             return;
 
         }

@@ -12,21 +12,26 @@ function Ship(stateAsRowStrings) {
      *                  each stack
      */
     this.getStackTops = () => {
+
         let stackTops = [];
+
         this.stacks.forEach((stack) => {
             stackTops.push(stack[stack.length - 1]);
         });
-        
+
         return stackTops;
+        
     }
 
     /**
      * Executes a move.
      * @param   {String} moveStr A string instruction in the form:
      *                           "move 3 from 5 to 9".
+     * @param   {Number} model   9000 or 9001 - the model of crane
+     *                           doing the move
      * @returns {void}
      */
-    this.doMove = (moveStr) => {
+    this.doMove = (moveStr, model) => {
 
         const regexp = /([0-9]+)/g
         const moveNums = [...moveStr.match(regexp)];  
@@ -35,9 +40,24 @@ function Ship(stateAsRowStrings) {
         const fromStack = moveNums[1] - 1; // Stack 1 is index 0 etc
         const toStack   = moveNums[2] - 1;
         
-        // For as many crates as we have to move, pop/push the stacks
-        for(let i = 0; i < numCrates; i++) {
-            this.stacks[toStack].push(this.stacks[fromStack].pop());
+        if(model === 9000) {
+            // For as many crates as we have to move, pop/push the stacks
+            // one at a time.
+            for(let i = 0; i < numCrates; i++) {
+                this.stacks[toStack].push(this.stacks[fromStack].pop());
+            }
+        } 
+        
+        if(model === 9001) {
+
+            // "Lift" numCrates from the old stack and concat onto the 
+            // new stack.
+            let crates = this.stacks[fromStack].splice(
+                this.stacks[fromStack].length - numCrates
+            );
+            
+            this.stacks[toStack] = this.stacks[toStack].concat(crates);
+
         }
 
         return;
