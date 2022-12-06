@@ -7,6 +7,7 @@ const fs = require('fs');
     const input = fs.readFileSync(INPUT_DATA_PATH).toString();
 
     console.log("The answer to Part One is:", getFirstWindowOfUniqueChars(input, 4));
+    console.log("The answer to Part One is:", getFirstWindowOfUniqueChars(input, 14));
     
     return;
 
@@ -27,6 +28,7 @@ function getFirstWindowOfUniqueChars(string, windowSize) {
     let currentWindow = [];
 
     // Create an array from the string and iterate it
+    // .every can be broken with a falsy return
     string.split("").every((letter) => {
 
         currentWindow.push(letter);
@@ -44,8 +46,6 @@ function getFirstWindowOfUniqueChars(string, windowSize) {
         // length, stop looping.
         if( currentWindow.length === windowSize &&
             currentWindow.length === uniqueChars.size ) {
-                console.log("ANSWER!!: ", currentWindow);
-                console.log(charsProcessed);
                 return false;
             }
 
