@@ -7,7 +7,7 @@ const fs = require('fs');
     const input = fs.readFileSync(INPUT_DATA_PATH).toString();
 
     console.log("The answer to Part One is:", getFirstWindowOfUniqueChars(input, 4));
-    console.log("The answer to Part One is:", getFirstWindowOfUniqueChars(input, 14));
+    console.log("The answer to Part Two is:", getFirstWindowOfUniqueChars(input, 14));
     
     return;
 
