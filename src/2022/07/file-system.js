@@ -59,7 +59,7 @@ class FileSystem {
     /**
      * Interprets a command from the terminal output
      * 
-     * @param {String} cmd 
+     * @param {String} cmd A command to interpret starting with $
      */
     processCmd(cmd) {
 
@@ -106,8 +106,6 @@ class FileSystem {
 
         // Traverse upwards
         if(relativePath === '..') {
-            
-            console.log('cdup', relativePath);
 
             // Split the path into breadcrumbs
             let breadcrumbs = this.cwd.path
@@ -126,8 +124,6 @@ class FileSystem {
 
         // Otherwise, navigate downwards (relative to cwd)
         else {
-
-            console.log('cddown', relativePath);
 
             fullPath = this.cwd.path + relativePath + this.sep;
             targetDir = this.getFsObj(fullPath, true, false);
@@ -157,8 +153,6 @@ class FileSystem {
      */
     getFsObj = (path, relative = false) => {
 
-        console.log('====');
-
         // If the path is relative to the cwd, we don't need
         // to traverse the tree
         if(relative) {
@@ -173,7 +167,6 @@ class FileSystem {
         }
 
         // Otherwise we can traverse the tree from the top
-        console.log('traverse', path);
         let currentSearchDir = this.tree; // The dir to search
         let result;                       // Var to hold the found object 
         let breadcrumbs = path            // Split the breadcrumbs into an array
@@ -189,8 +182,6 @@ class FileSystem {
         //loop breadcrumbs
         for(let depth = 0; depth < breadcrumbs.length; depth++) {
             
-            console.log('loop'+depth);
-
             // On the final loop we may or may not need to append the final
             // trailing separator to the path (this.sep if final breadcrumb
             // is a directory, empty string if it's a file). On all other 
@@ -200,8 +191,6 @@ class FileSystem {
             } else {
                 pathToMatch += breadcrumbs[depth] + this.sep;
             }
-
-            console.log('ptm:', pathToMatch);
 
             // Search for an object in the current search directory, matching
             // the path
@@ -214,7 +203,6 @@ class FileSystem {
             currentSearchDir = result;
         }
     
-        console.log('====');
         return result;
         
     }
