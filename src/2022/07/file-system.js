@@ -18,7 +18,7 @@ class FileSystem {
      * @param {String} terminalOutput Full puzzle input as string
      * @returns {Void}
      */
-    initTree = (terminalOutput) => {
+    initTree(terminalOutput) {
 
         let outputLines = terminalOutput.split("\n");
 
@@ -151,7 +151,7 @@ class FileSystem {
      * @returns {Dir|File}           A directory or file object, or undefined
      *                               if the path is not matched.
      */
-    getFsObj = (path, relative = false) => {
+    getFsObj(path, relative = false) {
 
         // If the path is relative to the cwd, we don't need
         // to traverse the tree
@@ -211,7 +211,7 @@ class FileSystem {
      * Get the filesystem tree from the root directory.
      * @returns {Dir} Full filesystem tree
      */
-    getTree = () => { 
+    getTree() { 
         return this.tree; 
     }
 
@@ -256,7 +256,7 @@ class File {
         this.size = parseInt(size);
     }
 
-    getPath = () => {
+    getPath() {
         return this.path;
     }
     
