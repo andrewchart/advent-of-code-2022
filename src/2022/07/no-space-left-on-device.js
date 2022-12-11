@@ -10,8 +10,22 @@ const FileSystem = require('./file-system.js').FileSystem;
 
     let fileSysModel = new FileSystem(input);
 
-    //console.log(fileSysModel.getTree());
-    console.log(fileSysModel.cwd);
+    // Part 1: Search for directories with size <= 100000
+    const searchParams = {
+        fsObjTypes: ["Dir"],
+        size: {
+            min: 0,
+            max: 100000
+        }
+    }
+
+    let searchResults = fileSysModel.getTree().searchDir(searchParams, true);
+    
+    let sumDirSizes = searchResults.reduce((totalSize, currentDir) => {
+        return totalSize + currentDir.size;
+    }, 0);
+
+    console.log("The answer to Part One is:", sumDirSizes);
 
 })();
 

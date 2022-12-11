@@ -262,6 +262,44 @@ class Dir {
         return this.size;
     }
 
+    /**
+     * Recursively search the whole tree for nodes which match given parameters.
+     * @param   {Object}  params    Object specifying parameters to match
+     * @param   {Boolean} recursive Search just this dir, or all dirs
+     * @returns {Array}             An array containing all the matching nodes
+     */
+    searchDir(params, recursive = true) {
+
+        let results = [];
+
+        results = this.children.filter((child) => {
+            
+            // Filter by object type
+            if(!params.fsObjTypes.includes(child.constructor.name)) {
+                return false;
+            }
+
+            // Filter by size
+            if(child.size < params.size.min || child.size > params.size.max) {
+                return false;
+            }
+
+            return true;
+
+        });
+
+        if(recursive) {
+            let childDirectories = this.children
+                .filter(child => child.constructor.name === "Dir");
+
+            childDirectories.forEach((dir) => {
+                results = results.concat(dir.searchDir(params, true));
+            });
+        }
+
+        return results;
+    }
+
 } 
 
 /**
