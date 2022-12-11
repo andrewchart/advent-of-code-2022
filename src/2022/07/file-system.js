@@ -30,6 +30,9 @@ class FileSystem {
             }
         });
 
+        // Calculate sizes for all dirs in the tree
+        this.tree.calculateSize();
+
         return;
     }
 
@@ -239,8 +242,24 @@ class Dir {
         return this.children.push(node);
     }
     
-    calculateSize = () => {
-        console.log('calcsize');
+    /**
+     * Calculate the size of this directory by recursing
+     * the tree, and adding up the result of the function
+     * on all child directories.
+     * 
+     * @returns {Integer} Final calculated size of the dir.
+     */
+    calculateSize() {
+
+        this.children.forEach((child) => {
+            if(child.constructor.name === "File") {
+                this.size += child.size;
+            } else {
+                this.size += child.calculateSize();
+            }
+        });
+
+        return this.size;
     }
 
 } 
