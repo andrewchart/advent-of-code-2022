@@ -80,6 +80,15 @@ class Tree {
             east:  undefined,
             west:  undefined
         }
+
+        // Determines how many trees can be seen from this tree
+        // when looking outwards from the tree itself.
+        this.scenic = {
+            north: undefined,
+            south: undefined,
+            east:  undefined,
+            west:  undefined
+        }
     }
 
 
@@ -202,6 +211,78 @@ class Tree {
         }
 
         return this.visible.west = vw;
+    }
+
+
+    /**
+     * Calculate the tree's scenic score which is the multiple of 
+     * all 4 of its viewing distances
+     * 
+     * @returns {Integer} Scenic score.
+     */
+    getScenicScore() {
+
+        // Save ourself some work - if this tree is on the edge,
+        // one of its viewing distances will be 0, hence scores 
+        // 0 overall.
+        if( this.x === 0 || 
+            this.y === 0 ||
+            this.x === this.maxCol || 
+            this.y === this.maxRow ) return 0;
+
+        return this.scenicNorth() *
+               this.scenicSouth() *
+               this.scenicEast()  *
+               this.scenicWest();
+
+    }
+
+    // How many trees can be seen from this tree looking northwards
+    scenicNorth() {
+        let sn = 0;
+
+        for(let i = this.y - 1; i >= 0; i--) {
+            sn++; // If the loop runs at all, we can see one more tree
+            if(this.getTree(this.x, i).height >= this.height) break;
+        }
+
+        return this.scenic.north = sn;
+    }
+
+
+    scenicSouth() {
+        let ss = 0;
+
+        for(let i = this.y + 1; i <= this.maxRow; i++) {
+            ss++;
+            if(this.getTree(this.x, i).height >= this.height) break;
+        }
+
+        return this.scenic.south = ss;
+    }
+
+
+    scenicEast() {
+        let se = 0;
+
+        for(let i = this.x + 1; i <= this.maxCol; i++) {
+            se++;
+            if(this.getTree(i, this.y).height >= this.height) break;
+        }
+
+        return this.scenic.east = se;
+    }
+
+
+    scenicWest() {
+        let sw = 0;
+
+        for(let i = this.x - 1; i >= 0; i--) {
+            sw++;
+            if(this.getTree(i, this.y).height >= this.height) break;
+        }
+
+        return this.scenic.west = sw;
     }
 
 }
