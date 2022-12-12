@@ -1,3 +1,6 @@
+/**
+ * Model a forest full of trees
+ */
 class Forest {
     constructor(input) {
         this.rows = input.split("\n");
@@ -8,16 +11,28 @@ class Forest {
         this.initForest();
     }
 
+    /**
+     * Populates the tree grid array with Tree objects
+     * exhibiting a height, an X-Y co-ordinate within 
+     * the grid.
+     * 
+     * When we create a tree, that tree knows the size 
+     * of the grid, and gets amethod which can take to 
+     * other trees in the grid which, if I was doing 
+     * this again, I would perhaps try to achieve 
+     * differently, rather than binding the forest 
+     * to every tree!!
+     */
     initForest() {
         this.rows.forEach((treeRow, i) => {
             for(let j = 0; j < treeRow.length; j++) {
                 this.treeGrid.push(
                     new Tree(
-                        this.rows[i].charAt(j), 
-                        j, 
-                        i, 
-                        this.numCols - 1, // Index of the last col of the forest
-                        this.numRows - 1, // Index of the last row of the forest
+                        this.rows[i].charAt(j), // Height
+                        j,                      // X co-ord
+                        i,                      // Y co-ord
+                        this.numCols - 1,       // Index of the last col of the forest
+                        this.numRows - 1,       // Index of the last row of the forest
                         this.getTree.bind(this) // Tree can get another tree from
                                                 // the same forest.
                     )
@@ -26,6 +41,13 @@ class Forest {
         });
     }
 
+    /**
+     * Gets a Tree based on its grid position
+     * @param   {Integer} x Zero-indexed x co-ordinate (left to right)
+     * @param   {Integer} y Zero-indexed y co-ordinate (top to bottom)
+     * @returns {Tree}      Instance of a Tree at the grid position or
+     *                      undefined on failure.
+     */
     getTree(x, y) {
         x = parseInt(x);
         y = parseInt(y);
@@ -37,8 +59,11 @@ class Forest {
 
 }
 
+/**
+ * Model an individual tree within the forest
+ */
 class Tree {
-    
+
     constructor(height, x, y, maxCol, maxRow, getTree) {
         this.height = parseInt(height);
         this.x = parseInt(x);
@@ -47,6 +72,8 @@ class Tree {
         this.maxRow = parseInt(maxRow);
         this.getTree = getTree;
         
+        // Determines direction/s the tree is visible from when
+        // standing outside the forest.
         this.visible = {
             north: undefined,
             south: undefined,
@@ -56,6 +83,11 @@ class Tree {
     }
 
 
+    /**
+     * Calculate whether this tree is visible within the current grid. 
+     * @returns {Boolean} `true` => the tree is visible from one or 
+     *                    more directions.
+     */
     getCurrentVisibility() {
 
         this.visibleNorth();
@@ -71,16 +103,16 @@ class Tree {
         );
     }
 
-
+    // Tree is visible from the north...
     visibleNorth() {
         let vn;
 
-        // Grid edge
+        // If it's on the grid edge
         if(this.y === 0) {
             vn = true;
         } 
         
-        // Otherwise, compare top down
+        // Or there are no equal or taller trees in front. Compare top down.
         else {
 
             vn = true;
@@ -101,12 +133,11 @@ class Tree {
     visibleSouth() {
         let vs;
 
-        // Grid edge
         if(this.y === this.maxRow) {
             vs = true;
         }
 
-        // Otherwise, compare bottom up
+        // Compare bottom up
         else {
 
             vs = true;
@@ -127,12 +158,11 @@ class Tree {
     visibleEast() {
         let ve;
 
-        // Grid edge
         if(this.x === this.maxCol) {
             ve = true;
         }
 
-        // Otherwise, compare right to left
+        // Compare right to left
         else {
 
             ve = true;
@@ -153,12 +183,11 @@ class Tree {
     visibleWest() {
         let vw;
 
-        // Grid edge
         if(this.x === 0) {
             vw = true;
         }
 
-        // Otherwise, compare left to right
+        // Compare left to right
         else {
 
             vw = true;
