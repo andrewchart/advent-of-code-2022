@@ -1,7 +1,6 @@
 const lineReader = require('line-reader');
 
-const CPU = require('./cpu.js').CPU;
-const CMD = require('./cpu.js').CMD;
+const { CPU, CMD } = require('./cpu.js');
 
 (() => {
    
@@ -34,7 +33,8 @@ const CMD = require('./cpu.js').CMD;
                 cpu.next();
             }
             
-            console.log('The answer to Part One is:', sumReadings);
+            console.log("The answer to Part One is:", sumReadings);
+            console.log("The answer to Part Two is:\n\n" + cpu.crt.render());
             return;
 
         }
