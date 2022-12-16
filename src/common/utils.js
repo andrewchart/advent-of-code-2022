@@ -21,8 +21,7 @@ function sumArray(arrToSum) {
 function divisibleByPrime(number, prime) {
 
   if(number > Number.MAX_SAFE_INTEGER) {
-    throw new Error(`Function can't be used on numbers 
-                     bigger than the max safe int`);
+    throw new Error(`Function can't be used on numbers bigger than the max safe int`);
   }
 
   // Source: https://www.johndcook.com/blog/2021/02/17/divisibility-by-any-prime/
