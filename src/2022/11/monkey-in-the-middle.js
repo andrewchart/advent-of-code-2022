@@ -33,9 +33,8 @@ const { Monkey } = require('./monkey.js');
 
     let monkeyBusiness = monkeys
         .map(monkey => monkey.itemsInspected)
-        .sort((a, b) => a - b)
-        .reverse()
-        .slice(0,2)
+        .sort((a, b) => b - a)
+        .slice(0, 2)
         .reduce((a, b) => a * b);
 
     console.log("The answer to Part One is:", monkeyBusiness);
@@ -75,9 +74,8 @@ const { Monkey } = require('./monkey.js');
 
     monkeyBusiness = monkeys
         .map(monkey => monkey.itemsInspected)
-        .sort((a, b) => a - b)
-        .reverse()
-        .slice(0,2)
+        .sort((a, b) => b - a)
+        .slice(0, 2)
         .reduce((a, b) => a * b);
 
     console.log("The answer to Part Two is:", monkeyBusiness);
