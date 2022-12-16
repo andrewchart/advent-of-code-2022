@@ -50,10 +50,10 @@ class Monkey {
      * Runs through the inspect/calm/test/throw cycle for each item in
      * the monkey's current inventory.
      * 
-     * @param   {Boolean} calmFunc An alternative calming function to use
-     *                             to reduce stress levels!
-     * @returns {Array}            Array of objects specifying throws to 
-     *                             execute.
+     * @param   {Function} calmFunc An alternative calming function to use
+     *                              to reduce stress levels!
+     * @returns {Array}             Array of objects specifying throws to 
+     *                              execute.
      */
     takeTurn(calmFunc = null) {
 
