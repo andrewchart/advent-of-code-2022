@@ -13,6 +13,7 @@ class Monkey {
         this.monkeyId = monkeyId;
         this.items = items;
         this.itemsInspected = 0;
+        this.testFuncDivisibleBy = testFuncDivisibleBy;
         this.throwsToWhenTrue = throwsToWhenTrue;
         this.throwsToWhenFalse = throwsToWhenFalse;
 
@@ -41,8 +42,7 @@ class Monkey {
         }
 
         this.test = (worryLevel) => {
-            if(worryLevel % testFuncDivisibleBy === 0) return true;
-            return false;
+            return (worryLevel % this.testFuncDivisibleBy === 0);
         }
     }
 
@@ -50,9 +50,12 @@ class Monkey {
      * Runs through the inspect/calm/test/throw cycle for each item in
      * the monkey's current inventory.
      * 
-     * @returns {Array} Array of objects specifying throws to execute.
+     * @param   {Boolean} calmFunc An alternative calming function to use
+     *                             to reduce stress levels!
+     * @returns {Array}            Array of objects specifying throws to 
+     *                             execute.
      */
-    takeTurn() {
+    takeTurn(calmFunc = null) {
 
         let throws = [];
 
@@ -64,7 +67,11 @@ class Monkey {
             worry = this.inspect(this.items[0]);
             this.itemsInspected++;
 
-            // Inspection over, calm down
+            // Use an alternative calming function for part 2
+            if(calmFunc) {
+                this.calm = calmFunc;
+            }
+
             worry = this.calm(worry);
 
             // Run the test and register the throw
